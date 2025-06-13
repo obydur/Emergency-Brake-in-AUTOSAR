@@ -1,0 +1,37 @@
+1. Functional Assumptions
+Let’s assume this Engine Control SWC handles:
+
+Reading accelerator pedal position
+
+Calculating target RPM
+
+Controlling fuel injection
+
+Sending engine status over CAN
+
+....................................................................................
+2. Ports & Interfaces
+Port Name	   Direction	Data Element		Description
+PedalInputPort	   Required	AcceleratorPosition	From pedal sensor
+EngineStatusPort   Provided	EngineRunning		Boolean status to other ECUs
+FuelControlPort	   Provided	InjectionAmount		Control signal to injectors
+.....................................................................................
+
+3. Runnables
+
+EngineControl_MainFunction: Executes every 10ms.
+
+#include "Rte_EngineControl.h" 
+.....coding
+
+
+Summery:
+
++---------------------------+
+|     EngineControl SWC     |
+|---------------------------|
+| R-Port: AcceleratorInput  | --> Reads pedal data
+| P-Port: FuelControl       | --> Writes injection value
+| P-Port: EngineStatus      | --> Outputs engine status
+| Runnable: MainFunction()  | --> Periodic logic
++---------------------------+
